@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+
+<title>환율 계산기</title>
+
+<style>
+
+body {
+    background:#0d1117;
+    color:white;
+    font-family:sans-serif;
+    max-width:700px;
+    margin:auto;
+    padding:30px;
+}
+
+.card {
+    background:#161b22;
+    border:1px solid #30363d;
+    border-radius:12px;
+    padding:25px;
+}
+
+select,input {
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+    font-size:16px;
+}
+
+.result {
+    margin-top:20px;
+    font-size:20px;
+    line-height:1.8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>💱 환율 계산기</h2>
+
+<p>기준일 : 26.06.13</p>
+
+<label>통화</label>
+
+<select id="currency">
+<option value="USD">USD</option>
+<option value="EUR">EUR</option>
+<option value="JPY">JPY</option>
+<option value="CNY">CNY</option>
+<option value="GBP">GBP</option>
+<option value="CHF">CHF</option>
+<option value="CAD">CAD</option>
+<option value="AUD">AUD</option>
+</select>
+
+<label>금액</label>
+
+<input
+    type="number"
+    id="amount"
+    value="100"
+>
+
+<div
+    id="result"
+    class="result">
+</div>
+
+</div>
+
+<script>
+
+const rates = {"USD": 1517.89, "EUR": 1755.3, "JPY": 9.45, "CNY": 224.52, "GBP": 2033.28, "CHF": 1904.77, "CAD": 1085.13, "AUD": 1069.61};
+
+function calc() {
+
+    const cur =
+        document.getElementById("currency").value;
+
+    const amount =
+        parseFloat(
+            document.getElementById("amount").value || 0
+        );
+
+    const rate = rates[cur];
+
+    const krw = amount * rate;
+
+    document.getElementById("result").innerHTML =
+
+        `1 ${cur} = ${rate.toLocaleString()} KRW
+
+        <br><br>
+
+        ${amount.toLocaleString()} ${cur}
+
+        =
+
+        ${Math.round(krw).toLocaleString()} KRW`;
+}
+
+document
+.getElementById("currency")
+.addEventListener("change", calc);
+
+document
+.getElementById("amount")
+.addEventListener("input", calc);
+
+calc();
+
+</script>
+
+</body>
+</html>
